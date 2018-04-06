@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('FrontEnd.Home.home');
 });
 
 Auth::routes();
@@ -31,3 +32,21 @@ Route::group(['midlewhere' => 'auth', 'prefix' => 'user'], function()
 
 
 });
+
+Route::group(['midlewhere' => 'auth', 'prefix' => 'reserve'], function()
+{
+	Route::get('form', [
+			'uses' => 'ReserveController@getReserva',
+			'as'   => 'reserve.form'
+		]);
+	});
+
+Route::get('contacto', [
+		'uses' => 'UserController@getContacto',
+		'as'   => 'contacto'
+		]);
+Route::get('sobre', [
+		'uses' => 'UserController@getSobre',
+		'as'   => 'sobre'
+	]);
+// Route::get('', ['uses' => 'HomeController']);

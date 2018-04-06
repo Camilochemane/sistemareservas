@@ -44,4 +44,15 @@ class UserController extends Controller
     	return redirect()->back();
     }
 
+
+    public function getContacto()
+    {
+        return view('FrontEnd.Home.Contacto.contacto');
+    }
+
+    public function getSobre()
+    {
+        return view('FrontEnd.Home.Sobre.sobre');
+    }
+
 }

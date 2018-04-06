@@ -34,19 +34,20 @@
 
                   </div>
               </li>
-              <li class="bold"><a href="" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Menu</a>
+              <li class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-home"></i> Menu</a>
               </li>
                <div class="divider"></div>
 
-              @if(Auth::user()->type_id== 1)
+              {{-- @if(Auth::user()->type_id== 1) --}}
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
                       <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-person"></i> Utilizadores </a>
                           <div class="collapsible-body">
                               <ul>                                      
-                                  <li><a href="">Adicionar</a>
+                                  <li><a href="#">Adicionar</a>
                                   </li>
-                                   <li><a href="">Listar</a>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Listar</a>
                                   </li>
                               </ul>
                           </div>
@@ -56,12 +57,13 @@
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-home"></i> Universidade </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-home"></i> Reserva </a>
                           <div class="collapsible-body">
                               <ul>                                      
-                                  <li><a href="">Adicionar</a>
+                                  <li><a href="#">Adicionar</a>
                                   </li>
-                                   <li><a href="">Listar</a>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Listar</a>
                                   </li>
                                  {{--  <li><a href="">Edit</a>
                                   </li> --}}
@@ -70,16 +72,17 @@
                       </li>
                   </ul>
               </li>
-              @elseif(Auth::user()->type_id==2)
+              {{-- @elseif(Auth::user()->type_id==2) --}}
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-public"></i> Pais </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-public"></i> Pagamento </a>
                           <div class="collapsible-body">
                               <ul>                                      
-                                  <li><a href="">Adicionar</a>
+                                  <li><a href="#">Adicionar</a>
                                   </li>
-                                   <li><a href="">Listar</a>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Listar</a>
                                   </li>
                                 
                               </ul>
@@ -90,11 +93,13 @@
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-description"></i> Relatorios </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-description"></i> Serviço </a>
                           <div class="collapsible-body">
                               <ul>                                      
-                                 
-                                   <li><a href="">Listar</a>
+                                    <li><a href="#">Adicionar</a>
+                                  </li>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Listar</a>
                                   </li>
                                   
                               </ul>
@@ -105,10 +110,13 @@
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-group"></i> Equipes </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-group"></i> Categoria </a>
                           <div class="collapsible-body">
-                              <ul>                                      
-                                   <li><a href="">Listar</a>
+                              <ul>  
+                                  <li><a href="#">Adicionar</a>
+                                  </li> 
+                                   <div class="divider"></div>                                
+                                   <li><a href="#">Listar</a>
                                   </li>
                               </ul>
                           </div>
@@ -117,14 +125,41 @@
                   </ul>
               </li>
               <div class="divider"></div>
-                 
-             
+              <li class="no-padding">
+                  <ul class="collapsible collapsible-accordion">
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-group"></i> Preço </a>
+                          <div class="collapsible-body">
+                              <ul>                                      
+                                   <li><a href="#">Adicionar</a>
+                                  </li>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Listar</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
 
+                  </ul>
+              </li>
+              <div class="divider"></div>
+              <li class="no-padding">
+                  <ul class="collapsible collapsible-accordion">
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-group"></i> Relatórios </a>
+                          <div class="collapsible-body">
+                              <ul>                                      
+                                   <li><a href="#">Adicionar</a>
+                                  </li>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Listar</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
 
-
-              @endif
-              
-      
+                  </ul>
+              </li>
+              <div class="divider"></div>
+              {{-- @endif --}}
           </ul>
           <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only darken-2"><i class="mdi-navigation-menu" ></i></a>
       </aside>
