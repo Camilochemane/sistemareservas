@@ -16,20 +16,34 @@
 
               <div class="col-md-6 text-right">
                 <ul class="topbar-cta no-margin">
-                @if(Route::has('login'))
-                @auth
+                  @guest
+                            <li class="mr-20"><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @else
+                            <li class="mr-20">
+                                <a>
+                                    {{ Auth::user()->name." ".Auth::user()->Apelido }}
+                                </a>
+                            </li> |
+                                    <li>
+                                        <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
 
-                @else
-                  <li class="mr-20">
-                    <a href="{{ route('login') }}">Login</a>
-                  </li>
-                  <li>
-                     <a href="{{ route('register') }}">Register</a>
-                  </li>
-                @endauth 
-                @endif
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
+                                    </li>
+
+                        @endguest
                 </ul> 
               </div>
+
+              
+
+                 
 
               
             </div><!-- /.row -->

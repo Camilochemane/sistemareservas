@@ -76,6 +76,18 @@
             @endif
           </div>
         </div>
+         <div class="row margin{{ $errors->has('Apelido') ? ' has-error' : '' }}">
+          <div class="input-field col s12">
+            <i class="mdi-social-person-outline prefix"></i>
+            <input id="Apelido" type="text" name="Apelido" value="{{ old('Apelido') }}" required autofocus >
+            <label for="username" class="center-align">Apelido</label>
+             @if($errors->has('Apelido'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('Apelido') }}</strong>
+                </span>
+            @endif
+          </div>
+        </div>
 
         <div class="row margin{{ $errors->has('email') ? ' has-error' : '' }}">
           <div class="input-field col s12">
@@ -89,6 +101,30 @@
             @endif
           </div>
         </div>
+        <div class="row margin{{ $errors->has('telefone') ? ' has-error' : '' }}">
+          <div class="input-field col s12">
+            <i class="mdi-action-account-box prefix"></i>
+            <input id="telefone" type="text" name="telefone" value="{{ old('telefone') }}" required autofocus>
+            <label for="telefone" class="center-align">Telefone</label>
+             @if($errors->has('telefone'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('telefone') }}</strong>
+                </span>
+            @endif
+          </div>
+        </div>
+        <div class="row margin{{ $errors->has('endereco') ? ' has-error' : '' }}">
+          <div class="input-field col s12">
+            <i class="mdi-action-home prefix"></i>
+            <input id="endereco" type="text" name="endereco" value="{{ old('endereco') }}" required autofocus>
+            <label for="endereco" class="center-align">Av/Rua/Bairro</label>
+             @if($errors->has('endereco'))
+                <span class="help-block">
+                  <strong>{{ $errors->first('endereco') }}</strong>
+                </span>
+            @endif
+          </div>
+        </div>
         <div class="row margin{{ $errors->has('password') ? ' has-error' : '' }}">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
@@ -96,11 +132,12 @@
             <label for="password">Password</label>
             @if($errors->has('email'))
                 <span class="help-block">
-                  <strong>{{ $errors->first('email') }}</strong>
+                  <strong>{{ $errors->first('password') }}</strong>
                 </span>
             @endif
           </div>
         </div>
+
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>

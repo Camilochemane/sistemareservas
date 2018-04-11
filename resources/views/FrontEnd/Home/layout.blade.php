@@ -4,6 +4,7 @@
   <title>Carlitos Hair International UH </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
              <link rel="shortcut icon" href="../assets2/img/CNO-MOZ.jpg">
         <!--  apple-touch-icon -->
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets2/img/ico/apple-touch-icon-144-precomposed.png">
@@ -28,6 +29,7 @@
        {!!Html::style('assets2/revolution/css/navigation.css')!!}
        <link href="http://cdn.datatables.net/1.10.6/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" media="screen,projection">
       {!!Html::style('assets2/js/plugins/data-tables/css/jquery.dataTables.min.css')!!}
+       {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
 
 
@@ -157,7 +159,9 @@
        {!!Html::script('assets2/revolution/js/extensions/revolution.extension.kenburn.min.js')!!}  
        {!!Html::script('assets2/revolution/js/extensions/revolution.extension.navigation.min.js')!!}  
        {!!Html::script('assets2/revolution/js/extensions/revolution.extension.migration.min.js')!!}  
-       {!!Html::script('assets2/revolution/js/extensions/revolution.extension.parallax.min.js')!!}  
+       {!!Html::script('assets2/revolution/js/extensions/revolution.extension.parallax.min.js')!!} 
+       {!!Html::script('assets2/revolution/js/extensions/revolution.extension.parallax.min.js')!!} 
+         {{-- // <script src="{{ asset('js/app.js') }}"></script>  --}}
         
 
 </body>

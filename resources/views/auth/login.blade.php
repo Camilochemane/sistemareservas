@@ -56,7 +56,7 @@
         <div class="row">
           <div class="input-field col s12 center">
             <img src="assets/images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login">
-            <p class="center login-form-text">new campany</p>
+            <p class="center login-form-text">Carlitos Hair International UH</p>
           </div>
         </div>
 

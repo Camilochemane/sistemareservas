@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->integer('telefone')->nullable();
             $table->string('endereco')->nullable();
             $table->unsignedInteger('type_id');
+            $table->string('funcao')->nullable();
+            $table->string('estado')->nullable();
             $table->rememberToken();
             $table->timestamps();
             

@@ -678,6 +678,11 @@
 
 .cyan {
   background-color: #e8e8e8 !important; }
+.cyan2 {
+  background-color: #000000 !important; }
+.cyan3 {
+  background-color: #ff4081 !important; }
+
 
 .cyan-text {
   color: #00bcd4 !important; }
@@ -2191,7 +2196,7 @@ ul.staggered-list li {
 footer.page-footer {
   margin-top: 20px;
   padding-top: 20px;
-  background-color: #00bcd4; }
+  background-color: #000000; }
   footer.page-footer .footer-copyright {
     overflow: hidden;
     height: 50px;
