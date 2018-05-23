@@ -50,6 +50,7 @@
   <div id="login-page" class="row">
     <div class="col s12 z-depth-4 card-panel">
     <form class="login-form" role="form" method="POST" action="{{ route('user.login') }}">
+     @include('BackEnd.includes.alerts')
                         {{ csrf_field() }}
 
        

@@ -75,7 +75,7 @@
                             <li ><a href="javascript:void(0)">Reservas<span class="indicator"></span></a>
                                 <ul class="dropdown" style="right: 0px; display: none;">
                                     <li class="active"><a href="{!!route('reserve.form')!!}">Agendar</a></li>
-                                    <li><a href="contact-us-2.html">Gerir</a></li>
+                                    <li><a href="{!!route('reserve.gerir')!!}">Gerir</a></li>
                                 </ul>
                             </li>
 

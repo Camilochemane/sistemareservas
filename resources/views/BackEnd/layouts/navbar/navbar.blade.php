@@ -4,7 +4,11 @@
             <nav class="cyan2">
                 <div class="nav-wrapper">
                     <h1 class="logo-wrapper"><a href="#" class="brand-logo darken-1">
+                    @if(Auth::user()->imagem )
+                    <img class="logo-text" src="{{url('storage/users/'.auth()->user()->imaage)}}" alt="{{auth()->user()->imaage}}" >
+                    @else
                     {{ Html::image('assets/images/materialize-logo.png', 'materialize logo', array('class' => 'logo-text')) }}
+                    @endif
                     </a> <span class=""></span></h1>
                     <ul class="right hide-on-med-and-down">
                         <li class="search-out">

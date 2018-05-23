@@ -3,6 +3,7 @@
               <li class="user-details cyan darken-2">
                   <div class="row">
                       <div class="col col s4 m4 l4">
+                     {{--  <img class="circle responsive-img valign profile-image" src="{{url('storage/users/'.Auth::user()->image)}}" alt="{{Auth::user()->image}}" > --}}
                           {{ Html::image('assets/images/avatar_1.jpeg', 'a picture', array('class' => 'circle responsive-img valign profile-image')) }}
                       </div>
                       @if (Auth::guest())
@@ -41,7 +42,7 @@
               {{-- @if(Auth::user()->type_id== 1) --}}
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-person"></i> Funcionario </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-person"></i> Funcionário</a>
                           <div class="collapsible-body">
                               <ul>                                      
                                   <li><a href="{!!route('func.form')!!}">Adicionar</a>
@@ -54,16 +55,33 @@
                       </li>
                   </ul>
               </li>
+                <div class="divider"></div>
+              <li class="no-padding">
+                  <ul class="collapsible collapsible-accordion">
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-person"></i> Cliente </a>
+                          <div class="collapsible-body">
+                              <ul>                                      
+                                   <div class="divider"></div>
+                                   <li><a href="{{route('cliente.listar')}}">Listar</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
+                  </ul>
+              </li>
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
                       <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-home"></i> Reserva </a>
                           <div class="collapsible-body">
                               <ul>                                      
-                                  <li><a href="#">Adicionar</a>
-                                  </li>
                                    <div class="divider"></div>
-                                   <li><a href="#">Listar</a>
+                                   <li><a href="{{route('reser.listar')}}">Todas</a>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Atendidas</a>
+                                   <div class="divider"></div>
+                                   <li><a href="#">Canceladas</a>
+                                   
                                   </li>
                                  {{--  <li><a href="">Edit</a>
                                   </li> --}}
@@ -76,7 +94,7 @@
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-public"></i> Pagamento </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-credit-card"></i> Pagamento </a>
                           <div class="collapsible-body">
                               <ul>                                      
                                   <li><a href="#">Adicionar</a>
@@ -127,13 +145,13 @@
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-group"></i> Preço </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-credit-card"></i> Preço </a>
                           <div class="collapsible-body">
                               <ul>                                      
-                                   <li><a href="#">Adicionar</a>
+                                   <li><a href="{!!route('form.preco')!!}">Adicionar</a>
                                   </li>
                                    <div class="divider"></div>
-                                   <li><a href="#">Listar</a>
+                                   <li><a href="{!!route('list.preco')!!}">Listar</a>
                                   </li>
                               </ul>
                           </div>
@@ -144,12 +162,9 @@
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-social-group"></i> Relatórios </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-av-my-library-books"></i> Relatórios </a>
                           <div class="collapsible-body">
                               <ul>                                      
-                                   <li><a href="#">Adicionar</a>
-                                  </li>
-                                   <div class="divider"></div>
                                    <li><a href="#">Listar</a>
                                   </li>
                               </ul>

@@ -23,24 +23,9 @@ class ServiceController extends Controller
 
 
    public function getListaservico()
-   {
-   		$servico = Service::all();
-
-         $servico = DB::table('services')
-                              ->join('categories', 'services.categoria_id', '=', 'categories.id')
-                              ->select(
-                                    'services.id            as id',
-                                    'services.name          as servicoName',
-                                    'services.categoria_id  as categoria_id ',
-                                    'services.descricao     as servicoDescricao',
-                                    'categories.designacao  as categoriaDesignacao',
-                                    'categories.descricao   as categoriaDescricao'
-                                 )->get();
-
-   		return view('BackEnd.Servico.ListServico', 
-            ['servico' => $servico]
-            );
-
+   {  
+        return view('BackEnd.Servico.ListServico', 
+            ['servico' => Service::all()]);
    }
    public function postAddservico(Request $request)
    {
@@ -77,6 +62,17 @@ class ServiceController extends Controller
    		return redirect()->route('list.servico');
 
    }
+     public function postAddmodalpreco(Request $request)
+  {
+    $servico                   = new Service;
+    $servico->name             = $request->input('name');
+    $servico->categoria_id     = $request->input('categoria_id');     
+    $servico->descricao        = $request->input('descricao');  
+
+    $servico->save();
+    
+    return redirect()->route('form.preco');
+  }
 }
 
 

@@ -19,7 +19,7 @@ public function getFormcategoria()
 
 public function postAddcategoria(Request $request)
 {
-	$categoria = new Category;
+	$categoria 				= new Category;
 
 	$categoria->designacao	= $request->input('designacao'); 
 	$categoria->descricao	= $request->input('descricao');
@@ -57,6 +57,18 @@ public function putActualizarcategoria(Request $request, $id)
 
 	return redirect()->route('categoria.list');
 
+}
+
+public function postAddmodalcategoria(Request $request)
+{
+	$categoria = new Category;
+
+	$categoria->designacao	= $request->input('designacao'); 
+	$categoria->descricao	= $request->input('descricao');
+
+	$categoria->save();
+
+	return redirect()->route('form.servico');
 }
 
 }

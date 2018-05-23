@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>
-    Menu page |
+    Menu page | Carlitos Hair International UH
     @yield('title')</title>
     <!-- Favicons-->
   <link rel="icon" href="assent/images/logo-equip.jpg" sizes="32x32">

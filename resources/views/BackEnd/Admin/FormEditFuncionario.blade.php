@@ -124,7 +124,7 @@
 
                       <div class="row">
                         <div class="input-field col s12">
-                         <button class="btn cyan3 waves-effect waves-light right" type="submit" name="action">Gravar
+                         <button class="btn waves-effect waves-light right" type="submit" name="action">Gravar
                             <i class="mdi-content-send right"></i>
                           </button>
                         </div>

@@ -55,6 +55,7 @@
                         <input id="first_name" type="text" name="name">
                         <label for="first_name">Nome</label>
                       </div>
+                      <div class="row">
                        <div class="input-field col s4">
                         <select id="type" name="categoria_id" >
                           <option value="" disabled selected>--Categoria--</option>
@@ -67,18 +68,7 @@
                       </div>
 
                        <div class="input-field col s2">
-                       <p> <a class="btn waves-effect waves-light blue" href="#modal">+Categoria</a></p>
-
-                <div id="modal" class="modal">
-                  <div class="modal-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                      Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                  </div>
-                  <div class="modal-footer">
-                    <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Disagree</a>
-                    <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Agree</a>
-                  </div>
-                </div>
+                       <p> <p><a class="waves-effect waves-light btn modal-trigger  light-blue" href="#modal1">+Categoria</a></p>
                       </div>
                     </div>
                     <div class="row">
@@ -102,6 +92,42 @@
             </div>
           </div>
     </section>
+
+
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+           <h4 class="header2">Formulario para registar Categoria </h4>
+                <div class="row">
+                {!!Form::open(['route'=>'categoriaModal.save', 'method' => 'POST', 'role' => 'form', 'id' => 'checkout-form'])!!}
+
+                      {{ csrf_field() }}
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input id="first_name" type="text" name="designacao">
+                        <label for="first_name">Nome</label>
+                      </div>
+                    
+                      <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea" name="descricao"></textarea>
+                        <label for="last_name">Descrição</label>
+                      </div>
+
+                    </div>      
+        </div>
+        <div class="divider"></div>
+        <div class="modal-footer">
+          <div class="row">
+              <div class="input-field col s12">
+                <button class="btn cyan3 waves-effect waves-light right" type="submit" name="action">Gravar
+                  <i class="mdi-content-send right"></i>
+                </button>
+              </div>
+            </div>
+        </div>
+        {!!Form::close()!!}
+      </div>
+     </div>
 
 
 @stop

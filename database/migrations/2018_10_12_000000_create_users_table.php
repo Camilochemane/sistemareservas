@@ -20,14 +20,16 @@ class CreateUsersTable extends Migration
             $table->string('email', 30)->index()->unique();
             $table->string('password');
             $table->integer('telefone')->nullable();
+            $table->string('codigoCliente')->nullable();
             $table->string('endereco')->nullable();
             $table->unsignedInteger('type_id');
             $table->string('funcao')->nullable();
             $table->string('estado')->nullable();
+            $table->string('sexo')->nullable();
+            $table->string('image', 100)->nullable();
             $table->rememberToken();
             $table->timestamps();
             
-
             $table->foreign('type_id')->references('id')->on('types');
         });
     }

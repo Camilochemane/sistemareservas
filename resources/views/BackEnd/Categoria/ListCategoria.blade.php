@@ -41,8 +41,8 @@
                           <td>{!!$categorias->designacao!!}</td>
                           <td>{!!$categorias->descricao!!} </td>
                             <td>
-                              <a href="" class="btn waves-effect waves-light  teal darken-2">view</a>
-                              <a href="{!!route('cateoria.edit',$categorias->id)!!}" class="btn waves-effect waves-light  yellon darken-2">Edit</a>
+                              <a href="" class="btn waves-effect waves-light  teal darken-2">Ver</a>
+                              <a href="{!!route('cateoria.edit',$categorias->id)!!}" class="btn waves-effect waves-light  yellon darken-2">Editar</a>
                             </td>
                     </tr>
                   @endforeach                   

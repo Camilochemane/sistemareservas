@@ -25,9 +25,15 @@
         <div class="container">
           <div class="section">
 
-            <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
+            <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH 
+
+            @if(isset($messagem))
+                <strong><a href="{{route('reser.listar')}}">{{$messagem}}</a></strong>
+            @endif
+            </p>
             <div class="divider"></div>
               <div class="row">
+            
                             <div class="col s12 m6 l3">
                                 <div class="card">
                                     <div class="card-content  green white-text">

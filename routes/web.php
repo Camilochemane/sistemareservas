@@ -53,6 +53,17 @@ Route::group(['midlewhere' => 'auth', 'prefix' => 'user'], function()
 		'uses' => 'UserController@getUnlock',
 		'as'   => 'user.unlock'
 		]);
+	Route::get('blockcliente/{id}', [
+		'uses' => 'UserController@getBlockcliente',
+		'as'   => 'cliente.block'
+		]);
+
+	Route::get('unlockcliente/{id}', [
+		'uses' => 'UserController@getUnlockcliente',
+		'as'   => 'cliente.unlock'
+		]);
+	
+
 	Route::get('edit/{id}',[
 		'uses' => 'UserController@getFormedit',
 		'as'   => 'user.edit'	
@@ -60,6 +71,10 @@ Route::group(['midlewhere' => 'auth', 'prefix' => 'user'], function()
 	Route::put('actualizar/{id}', [
 		'uses' => 'UserController@putActualizar',
 		'as'   => 'user.atualizar'
+		]);
+	Route::post('pesquisar', [
+		'uses' => 'UserController@pesquisar',
+		'as'   => 'user.pesquisar'
 		]);
 
 });
@@ -86,6 +101,10 @@ Route::group(['prefix' => 'categoria'], function(){
 		'uses' => 'CategoryController@putActualizarcategoria',
 		'as'   => 'categoria.actualizar'
 		]);
+	Route::post('addmodal',[
+		'uses' => 'CategoryController@postAddmodalcategoria',
+		'as'   => 'categoriaModal.save'
+		]);
 });
 
 Route::group(['prefix' => 'servico'], function(){
@@ -109,16 +128,117 @@ Route::group(['prefix' => 'servico'], function(){
 		'uses' => 'ServiceController@putActualizarservico',
 		'as'   => 'servico.actualizar'
 		]);
+	
 
 });
 
-Route::group(['midlewhere' => 'auth', 'prefix' => 'reserve'], function()
+Route::group(['prefix' => 'preco'], function(){
+	
+	Route::get('form', [
+		'uses' => 'PriceController@getFormregistarpreco',
+		'as'   => 'form.preco'
+		]);
+	Route::post('add', [
+		'uses' => 'PriceController@postAddpreco',
+		'as'   => 'preco.save'
+		]);
+	Route::get('list', [
+		'uses' => 'PriceController@getFormlistpreco',
+		'as'   => 'list.preco'
+		]);
+	Route::get('edit/{id}', [
+		'uses' => 'PriceController@getFormreeditarpreco',
+		'as'   => 'edit.preco'
+		]);
+
+	Route::post('actualizar/{id}', [
+		'uses' => 'PriceController@putActualizarpreco',
+		'as'   => 'preco.actualizar'
+		]);
+
+	Route::post('',[
+		'uses' => 'ServiceController@postAddmodalpreco',
+		'as'   => 'servicoModal.save'
+		]);
+
+});
+
+Route::group(['prefix' => 'cliente'], function(){
+
+	Route::get('listar', [
+		'uses' => 'UserController@getListarcliente',
+		'as'   => 'cliente.listar'
+		]);
+
+});
+
+Route::group(['midlewhere' => 'auth', 'prefix' => 'reserva'], function()
 {
 	Route::get('form', [
 			'uses' => 'ReserveController@getReserva',
 			'as'   => 'reserve.form'
 		]);
+	Route::get('gerir', [
+		'uses' => 'ReserveController@getGerirreserva',
+		'as'   => 'reserve.gerir'
+		]);
+	Route::get('data/{id}', [
+		'uses' => 'ReserveController@escolherDatareserva',
+		'as'   => 'data.reserva'
+
+		]);
+
+	Route::post('sub/reserva', [
+		'uses' => 'ReserveController@submeterReserva',
+		'as'   => 'sub.reserva' 
+		]);
+
+	Route::post('data/{id}/hora', [
+	'uses'  => 'ReserveController@horario',
+	'as'    => 'horario.form'
+
+	]);
+	Route::get('editar/{id}', [
+		'uses' => 'ReserveController@editarescolherDatareserva',
+		'as'   => 'editar.reserva'
+		]);
+
+	Route::post('editar/data/{id}/hora', [
+	'uses'  => 'ReserveController@editarHorario',
+	'as'    => 'horario.editar'
+
+	]);
+
+	Route::post('actualizar/{id}', [
+		'uses' => 'ReserveController@atualizarReserva',
+		'as'   => 'actualizar.reserva'
+		]);
+
+	Route::get('listar', [
+		'uses' =>'ReserveController@listarReservas',
+		'as'   => 'reser.listar'
+		]);
+
+	Route::get('confirmar/{id}', [
+		'uses' => 'ReserveController@confirmarReserva',
+		'as'   => 'reseva.confirmar'
+		]);
+
+	Route::post('pesquisar', [
+		'uses' => 'ReserveController@reservaPesquisa',
+		'as'   => 'reserva.pesquisar'
+		]);
+
 	});
+
+Route::group(['midlewhere' => 'auth', 'prefix' => 'reserva'], function()
+{
+	Route::get('reservas', [
+		'uses'  => 'ReserveController@relatorioTodasreservas',
+		'as'    => 'relatorio.reservas'
+		]);
+});
+
 
 Route::get('contacto', [
 		'uses' => 'UserController@getContacto',

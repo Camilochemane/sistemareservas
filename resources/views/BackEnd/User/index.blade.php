@@ -29,9 +29,10 @@
         <div class="container">
           <div class="section">
 
-            <p class="caption"> Sistema de Gestão de Estagiários  (eqUIP)</p>
+            <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH <strong><a href="{{route('reser.listar')}}">{{$messagem}}</a></strong></p>
             <div class="divider"></div>
               <div class="row">
+              @include('BackEnd.includes.alerts')
                             <div class="col s12 m6 l3">
                                 <div class="card">
                                     <div class="card-content  green white-text">

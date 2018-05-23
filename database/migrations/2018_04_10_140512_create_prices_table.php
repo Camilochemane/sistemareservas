@@ -15,6 +15,11 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('valor');
+            $table->unsignedInteger('servico_id');
+            $table->text('descricao');
+
+            $table->foreign('servico_id')->references('id')->on('services');
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>
-    Menu page |
+    Menu page | Carlitos Hair International UH
     @yield('title')</title>
     <!-- Favicons-->
   <link rel="icon" href="assent/images/logo-equip.jpg" sizes="32x32">
@@ -92,6 +92,22 @@
         });
     });
     </script>
+
+      <script type="text/javascript">
+        $(function () {
+        $("#remember-me").click(function () {
+            if ($(this).is(":checked")) {
+                $("#hideUtilizador1").hide();
+                $("#hideUtilizador2").hide();
+                $("#hideUtilizador3").hide();
+            } else {
+                $("#hideUtilizador1").show();
+                $("#hideUtilizador2").show();
+                $("#hideUtilizador3").show();
+            }
+        });
+    });
+  </script>
     
 
 </body>

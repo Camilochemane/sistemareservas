@@ -2,6 +2,11 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Type;
+use App\Category;
+use App\Service;
+use App\Price;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,6 +17,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Type::create([
+            'name'      => 'Admin',
+
+            ]);
+        Type::create([
+            'name'      => 'Funcionario',
+
+            ]);
+        Type::create([
+            'name'      => 'Cliente',
+
+            ]);
+
         User::create([
 		'name'     		=> 'Fernando',
 		'Apelido'  		=> 'Maposse', 
@@ -22,6 +40,8 @@ class DatabaseSeeder extends Seeder
 		'type_id'     	=>3,
         'funcao'        => '',
         'estado'        => 'Activo',
+        'sexo'          =>'Masculino',
+
     		]);
       
         User::create([
@@ -35,7 +55,7 @@ class DatabaseSeeder extends Seeder
         'type_id'       =>1,
         'funcao'        => '',
         'estado'        => 'Activo',
-
+        'sexo'          => 'Masculino',
             ]);
 
          User::create([
@@ -44,10 +64,12 @@ class DatabaseSeeder extends Seeder
         'email'         => 'c.come@gmail.com', 
         'password'      => bcrypt('123456'),   
         'telefone'      => '842317035',  
+        'codigoCliente' => '201837304',
         'endereco'      => 'Maputo-Mozambique',
         'type_id'       =>2,
         'funcao'        => '',
         'estado'        => 'Activo',
+        'sexo'          => 'Masculino',
 
             ]);
     }
