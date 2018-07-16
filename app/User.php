@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Sevice;
+use App\Type;
 
 class User extends Authenticatable
 {
@@ -27,7 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
+    public function type()
+    {
+        return $this->belongsTo(Type::class, 'type_id');
+    }
 
     public function pesquisar(Array $data, $totalpaginate)
     {
@@ -43,6 +47,24 @@ class User extends Authenticatable
         })
         ->paginate($totalpaginate);
     }
+
+       public function pesquisarcliente(Array $data, $totalpaginate)
+    {
+        return $this->where(function ($query) use ($data){
+
+            if(isset($data['name']))
+                $query->where('name', $data['name'])->where('type_id', 3);
+
+
+            if(isset($data['estado']))
+                $query->where('estado', $data['estado'] )->where('type_id', 3);
+
+
+        })
+        ->paginate($totalpaginate);
+    }
+
+    
 
     public function service()
     {

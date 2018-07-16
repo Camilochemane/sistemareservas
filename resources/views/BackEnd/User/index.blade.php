@@ -29,15 +29,15 @@
         <div class="container">
           <div class="section">
 
-            <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH <strong><a href="{{route('reser.listar')}}">{{$messagem}}</a></strong></p>
+            <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH <a href="{{route('reser.listar')}}"><span class="task-cat pink"><strong>{{$messagem}}</strong></span></a></p>
             <div class="divider"></div>
               <div class="row">
               @include('BackEnd.includes.alerts')
                             <div class="col s12 m6 l3">
                                 <div class="card">
                                     <div class="card-content  green white-text">
-                                        <p class="card-stats-title"><i class="mdi-social-group-add"></i> Numero total dos Estagiarios</p>
-                                        <h4 class="card-stats-number">50</h4>
+                                        <p class="card-stats-title"><i class="mdi-social-group-add"></i> Numero total dos clientes</p>
+                                        <h4 class="card-stats-number">{{$totalCliente}}</h4>
                                         <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 15% <span class="green-text text-lighten-5">from yesterday</span>
                                         </p>
                                     </div>
@@ -46,8 +46,8 @@
                             <div class="col s12 m6 l3">
                                 <div class="card">
                                     <div class="card-content purple white-text">
-                                        <p class="card-stats-title"><i class="mdi-editor-attach-money"></i>Total number of regions</p>
-                                        <h4 class="card-stats-number">20</h4>
+                                        <p class="card-stats-title"><i class="mdi-editor-attach-money"></i>Numero total de reservas</p>
+                                        <h4 class="card-stats-number">{{$totalReservas}}</h4>
                                         <p class="card-stats-compare"><i class="mdi-hardware-keyboard-arrow-up"></i> 70% <span class="purple-text text-lighten-5">last month</span>
                                         </p>
                                     </div>

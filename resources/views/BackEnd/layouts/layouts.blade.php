@@ -58,8 +58,8 @@
     {!!Html::script('assets/js/plugins/jvectormap/vectormap-script.js')!!}
     {!!Html::script('assets/js/plugins.js')!!}
     {!!Html::script('assets/js/prism.js')!!}
-    {!!Html::script('../assets/js/plugins/data-tables/js/jquery.dataTables.min.js')!!}
-    {!!Html::script('../assets/js/plugins/data-tables/data-tables-script.js')!!}
+    {{-- {!!Html::script('../assets/js/plugins/data-tables/js/jquery.dataTables.min.js')!!} --}}
+    {{-- {!!Html::script('../assets/js/plugins/data-tables/data-tables-script.js')!!} --}}
     {!!Html::script('../assets/js/plugins.js')!!}
     {!!Html::script('../assets/js/custom-script.js')!!}
 

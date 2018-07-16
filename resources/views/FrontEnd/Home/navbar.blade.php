@@ -18,6 +18,7 @@
                 <ul class="topbar-cta no-margin">
                   @guest
                             <li class="mr-20"><a href="{{ route('login') }}">Login</a></li>
+                            |
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
                             <li class="mr-20">

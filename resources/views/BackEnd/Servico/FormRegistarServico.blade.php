@@ -47,7 +47,7 @@
               <div class="card-panel">
                 <h4 class="header2">Formulario para registar Serviço </h4>
                 <div class="row">
-                {!!Form::open(['route'=>'servico.save', 'method' => 'POST', 'role' => 'form', 'id' => 'checkout-form'])!!}
+                {!!Form::open(['route'=>'servico.save', 'method' => 'POST', 'role' => 'form', 'id' => 'checkout-form', 'enctype'=>'multipart/form-data'])!!}
 
                       {{ csrf_field() }}
                     <div class="row">
@@ -72,9 +72,18 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="input-field col s12">
+                      <div class="input-field col s6">
                         <textarea id="textarea1" class="materialize-textarea" name="descricao"></textarea>
                         <label for="last_name">Descrição</label>
+                      </div>
+                      <br>
+                      <br>
+                      <div class="file-field input-field col s6">
+                        <input class="file-path validate" type="text" name="image"/>
+                        <div class="btn">
+                          <span>Imagem</span>
+                          <input type="file" name="image"/>
+                        </div>
                       </div>
                     </div>
 
@@ -112,7 +121,6 @@
                         <textarea id="textarea1" class="materialize-textarea" name="descricao"></textarea>
                         <label for="last_name">Descrição</label>
                       </div>
-
                     </div>      
         </div>
         <div class="divider"></div>

@@ -13,6 +13,7 @@ use Auth;
 class ReserveController extends Controller
 {
     private $totalPagina = 3;
+
       public function __construct()
     {
         $this->middleware('auth');
@@ -21,7 +22,9 @@ class ReserveController extends Controller
 
     public function getReserva()
     {
-    	$servicos = Service::all();
+    	$servicos            = DB::table('services')
+                                      ->join('prices', 'services.id', '=', 'prices.servico_id')
+                                        ->orderByRaw('categoria_id ASC')->paginate(6);
     	return view('FrontEnd.Home.Reserva.FormReserva', ['servicos' => $servicos]);
     }
 
@@ -46,8 +49,12 @@ class ReserveController extends Controller
                             ->join('services', 'prices.servico_id', '=',  'services.id')
                             ->where('servico_id', '=', $id)
                             ->first();
+        if($servicos){
+            return view('FrontEnd.Home.Reserva.DiaReserva', ['servicos' => $servicos]);
+        }else{
+          return redirect()->back()->with('error', 'O servico escolhido nao possue preco');
+        }
 
-        return view('FrontEnd.Home.Reserva.DiaReserva', ['servicos' => $servicos]);
     }
 
     public function horario(Request $request)
@@ -75,13 +82,13 @@ class ReserveController extends Controller
                 
                 }else{
 
-                $horaInicio = "08:00:00";
-                $horaFeicho = "18:00:00";
+                $horaInicio       = "08:00:00";
+                $horaFeicho       = "18:00:00";
 
-                $horaInicioArray = explode(':', $horaInicio);
-                $horaFeichoArray = explode(':', $horaFeicho);
-                $horaToda = "";
-                $i =1;
+                $horaInicioArray  = explode(':', $horaInicio);
+                $horaFeichoArray  = explode(':', $horaFeicho);
+                $horaToda         = "";
+                $i                =1;
                     while ( $horaInicioArray[0]< $horaFeichoArray[0]) {
                      $horaToda = $horaToda.'<div class="col-md-4">
                      <p>
@@ -103,8 +110,8 @@ class ReserveController extends Controller
                     }
                     $i++;
                   }
-                    $data = $dataForm['data'];
-                    $servico = $dataForm['servico'];
+                    $data     = $dataForm['data'];
+                    $servico  = $dataForm['servico'];
                     return view('FrontEnd.Home.Reserva.HorarioReserva', ['horaToda' => $horaToda, 'data'=> $data, 'servico' => $servico]);
                
                 }
@@ -187,13 +194,13 @@ public function editarHorario(Request $request)
                 
                 }else{
 
-                $horaInicio = "08:00:00";
-                $horaFeicho = "18:00:00";
+                $horaInicio       = "08:00:00";
+                $horaFeicho       = "18:00:00";
 
-                $horaInicioArray = explode(':', $horaInicio);
-                $horaFeichoArray = explode(':', $horaFeicho);
-                $horaToda = "";
-                $i =1;
+                $horaInicioArray  = explode(':', $horaInicio);
+                $horaFeichoArray  = explode(':', $horaFeicho);
+                $horaToda         = "";
+                $i                =1;
                     while ( $horaInicioArray[0]< $horaFeichoArray[0]) {
                      $horaToda = $horaToda.'<div class="col-md-4">
                      <p>
@@ -219,7 +226,7 @@ public function editarHorario(Request $request)
                     $reservaId = $dataForm['reserva'];
                     $servico = $dataForm['servico'];
                     return view('FrontEnd.Home.Reserva.Editar.EditarHorarioReserva', ['horaToda' => $horaToda,
-                     'data'=> $data, 'servico' => $servico, 'reservaId' => $reservaId]);
+                    'data'=> $data, 'servico' => $servico, 'reservaId' => $reservaId]);
                
                 }
 
@@ -271,6 +278,7 @@ public function listarReservas()
 {
       $reservas          = Reserve::orderByRaw('data DESC')->paginate($this->totalPagina);
       $dataAtual         = date('Y-m-d H:i:s');
+      $user              = User::where('users.type_id', '=', 3)->get();
 
       $reservasExpiradas = Reserve::where('data', '<' ,$dataAtual)->get();
 
@@ -280,15 +288,15 @@ public function listarReservas()
           $expiradas->update();
       }
 
-      return view('BackEnd.Reserva.Listar', ['reservas' => $reservas]);
+      return view('BackEnd.Reserva.Listar', ['reservas' => $reservas, 'user' => $user]);
 }
 
 
 public function confirmarReserva($id)
 {
-  $reservas = Reserve::find($id);
-  $reservas->funcionario = Auth::user()->name;
-  $reservas->estado      = "Confirmar";
+  $reservas                 = Reserve::find($id);
+  $reservas->funcionario    = Auth::user()->name;
+  $reservas->estado         = "Confirmado";
   $reservas->update();
 
   return redirect()->route('reser.listar');
@@ -296,9 +304,9 @@ public function confirmarReserva($id)
 
 public function atenderReserva($id)
 { 
-  $reservas = Reserve::find($id);
-  $reservas->funcionario = Auth::user()->name;
-  $reservas->estado      = "Atendida";
+  $reservas                   = Reserve::find($id);
+  $reservas->funcionario      = Auth::user()->name;
+  $reservas->estado           = "Atendida";
   $reservas->update();
   
   return redirect()->route('reser.listar'); 
@@ -307,21 +315,37 @@ public function atenderReserva($id)
 
 public function reservaPesquisa(Request $request, Reserve $reservas)
 {
-        $dataForm       = $request->except('_token');
-        $reservas       = $reservas->pesquisar($dataForm, $this->totalPagina);
+        $dataForm             = $request->except('_token');
+        $reservas             = $reservas->pesquisar($dataForm, $this->totalPagina);
+        $user                 = User::where('users.type_id', '=', 3)->get();
 
-        return view('BackEnd.Reserva.Listar', ['reservas' => $reservas, 'dataForm' => $dataForm]);
+        return view('BackEnd.Reserva.Listar', ['reservas' => $reservas, 'dataForm' => $dataForm, 'user' => $user]);
 }
 
 public function relatorioTodasreservas()
 {
-  $reservas = Reserve::all();
-
-   $view = view('BackEnd.Relatorios.TodasReservas', compact('reservas'));
-        $pdf = \App::make('dompdf.wrapper');
+        $reservas = Reserve::all();
+        $view     = view('BackEnd.Relatorios.TodasReservas', compact('reservas'));
+        $pdf      = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('reservas');
 }
 
+public function cancelarReserva($id)
+{
+  $reservas             = Reserve::find($id);
+  $reservas->estado     = 'Cancelado';
+  $reservas->update();
+
+    return redirect()
+                ->back()->with('success', 'Reserva Cancelada com sucesso');
+}
+
+
+public function DetalhesReserva($id)
+{
+  
+  return view('BackEnd.Reserva.DetalhesReserva');
+}
 
 }

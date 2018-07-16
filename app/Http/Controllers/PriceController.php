@@ -11,7 +11,7 @@ Use DB;
 
 class PriceController extends Controller
 {
-  
+  private $totalPage = 5;
   public function getFormregistarpreco()
   {
   	$servico      = Service::all();
@@ -43,8 +43,9 @@ class PriceController extends Controller
 
   public function getFormlistpreco()
   {
-       return view('BackEnd.Preco.ListPreco',[
-  		'preco' => Price::all()]);
+      $servico = Service::all();
+      return view('BackEnd.Preco.ListPreco',[
+  		'preco' => Price::paginate($this->totalPage), 'servico' => $servico]);
   }
 
     public function getFormreeditarpreco($id)
@@ -70,5 +71,16 @@ class PriceController extends Controller
   	$preco->update();
 
   	return redirect()->route('list.preco');
+  }
+
+
+  public function precoPesquisar(Request $request, Price $preco)
+  {
+      $dataForm       = $request->except('_token');
+      $servico        = Service::all();
+      $preco          = $preco->pesquisar($dataForm, $this->totalPage);  
+
+      return view('BackEnd.Preco.ListPreco',[
+      'preco' => $preco, 'servico' => $servico]);  
   }
 }

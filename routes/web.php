@@ -1,4 +1,5 @@
 <?php
+use App\Reserve;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,9 +78,17 @@ Route::group(['midlewhere' => 'auth', 'prefix' => 'user'], function()
 		'as'   => 'user.pesquisar'
 		]);
 
+	Route::post('pesquisar/cliente', [
+		'uses' => 'UserController@clientepesquisar',
+		'as'   => 'cliente.pesquisar'
+		]);
+	Route::get('perfil/{id}', [
+		'uses' => 'UserController@clienteperfil',
+		'as'   =>  'cliente.perfil'
+		]);
 });
 
-Route::group(['prefix' => 'categoria'], function(){
+Route::group(['midlewhere' => 'auth', 'prefix' => 'categoria'], function(){
 
 	Route::get('form', [
 		'uses' => 'CategoryController@getFormcategoria',
@@ -105,9 +114,14 @@ Route::group(['prefix' => 'categoria'], function(){
 		'uses' => 'CategoryController@postAddmodalcategoria',
 		'as'   => 'categoriaModal.save'
 		]);
+
+	Route::post('pesquisar', [
+		'uses' => 'CategoryController@categoriaPesquisar',
+		'as'   => 'categoria.pesquisar'
+		]);
 });
 
-Route::group(['prefix' => 'servico'], function(){
+Route::group(['midlewhere' => 'auth', 'prefix' => 'servico'], function(){
 	Route::get('form', [
 		'uses' => 'ServiceController@getFormservico',
 		'as'   => 'form.servico'
@@ -128,11 +142,14 @@ Route::group(['prefix' => 'servico'], function(){
 		'uses' => 'ServiceController@putActualizarservico',
 		'as'   => 'servico.actualizar'
 		]);
-	
+	Route::post('pesquisar', [
+		'uses' => 'ServiceController@servicoPesquisar',
+		'as'   => 'servico.pesquisar'
+		]);
 
 });
 
-Route::group(['prefix' => 'preco'], function(){
+Route::group(['midlewhere' => 'auth', 'prefix' => 'preco'], function(){
 	
 	Route::get('form', [
 		'uses' => 'PriceController@getFormregistarpreco',
@@ -161,9 +178,14 @@ Route::group(['prefix' => 'preco'], function(){
 		'as'   => 'servicoModal.save'
 		]);
 
+	Route::post('pesquisar', [
+		'uses' => 'PriceController@precoPesquisar',
+		'as'   => 'preco.pesquisar'
+		]);
+
 });
 
-Route::group(['prefix' => 'cliente'], function(){
+Route::group(['midlewhere' => 'auth', 'prefix' => 'cliente'], function(){
 
 	Route::get('listar', [
 		'uses' => 'UserController@getListarcliente',
@@ -229,6 +251,16 @@ Route::group(['midlewhere' => 'auth', 'prefix' => 'reserva'], function()
 		'as'   => 'reserva.pesquisar'
 		]);
 
+	Route::get('cancelar/{id}', [
+			'uses' => 'ReserveController@cancelarReserva',
+			'as'   => 'reserva.concelar'
+			]);
+
+	Route::get('detalhes/{id}', [
+			'uses' => 'ReserveController@DetalhesReserva',
+			'as'   => 'reserva.detalhes'
+		]);
+
 	});
 
 Route::group(['midlewhere' => 'auth', 'prefix' => 'reserva'], function()
@@ -238,7 +270,6 @@ Route::group(['midlewhere' => 'auth', 'prefix' => 'reserva'], function()
 		'as'    => 'relatorio.reservas'
 		]);
 });
-
 
 Route::get('contacto', [
 		'uses' => 'UserController@getContacto',

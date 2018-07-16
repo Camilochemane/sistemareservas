@@ -21,8 +21,8 @@
         <section class="section-padding ">
             <div class="container">
 			    <div align="center">
-			        <h1>Data de Serviços X </h1>
-			        <p>Caro Cliente x queira por favor escolhe a data que pretender agendar o seu serviço com exceção do domingo</p>
+			        <h1>Data de Serviços {!!$servicos->name!!} </h1>
+			        <p>Caro Cliente queira por favor escolhe a data que pretender agendar o seu serviço com exceção do domingo</p>
 			    </div>
 
              <div class="row equal-height-row">

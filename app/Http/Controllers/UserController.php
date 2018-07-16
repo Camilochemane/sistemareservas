@@ -21,24 +21,47 @@ class UserController extends Controller
         // dd($request->all());
     	if(Auth::attempt([
 
-    		'email' => $request->email,
-    		'password' => $request->password,
+    		'email'       => $request->email,
+    		'password'    => $request->password,
 
     		]))
     	{
-	    		$user        = User::where('email', $request->email)->first();
-                $reservas    = Reserve::where('estado', '=', 'Pendente')->first();
+                $totalCliente                           = User::where('type_id', '=', 3)->count();
+	            $totalReservas                          = Reserve::count();
+                $user                                   = User::where('email', $request->email)->first();
+                $reservas                               = Reserve::where('estado', '=', 'Pendente')->first();
+                $totalReservasPendentes                 = Reserve::where('estado', '=', 'Pendente')->count();
+                $reservasCanceladasUtilizadorLogado     = Reserve::where('estado', '<>', 'Confirmado')->where('user_id', '=', Auth::user()->id)->count();
+                $reservasCanceladas                     = Reserve::where('estado', '<>', 'Confirmado')->count();
+                $reservasConfirmadas                    = Reserve::where('estado', '=', 'Confirmado')->where('user_id', '=', Auth::user()->id)->count();
+                
 
+                if($reservasCanceladasUtilizadorLogado > 9){
+                  $users = User::find(Auth::user()->id); 
+                  $users->estado = 'Bloqueado';
+                  $users->update();
+
+                    $nexmo  = app('Nexmo\Client');
+                    $nexmo->message()->send([
+                    'to'    => '258842317035',
+                    'from'  => 'Camilo',
+                    'text'  => 'Mensagem enviada por '.config('app.name', ' Carlitos Hair Internactional').' Caro cliente foste Bloqueado pelo numro excessivo de reservas nao compridas'
+                    ]); 
+                }
 
 	    		if($user->type_id == 1)
 	    		{    
                     if($reservas){
                         $messagem = 'Caro utilizador existem reservas clica aqui para validar';
 
-                        return view('BackEnd.Admin.index', ['messagem' => $messagem]);
+                        return view('BackEnd.Admin.index', ['messagem' => $messagem, 'totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
+                            'reservasCanceladas' => $reservasCanceladas, 'reservasConfirmadas' => $reservasConfirmadas, 
+                            'totalReservasPendentes' => $totalReservasPendentes]);
                                     
                     }else{
-	    			    return view('BackEnd.Admin.index');
+	    			    return view('BackEnd.Admin.index', ['totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
+                            'reservasCanceladas' => $reservasCanceladas, 'reservasConfirmadas' => $reservasConfirmadas, 
+                            'totalReservasPendentes' => $totalReservasPendentes]);
                      }
 
 	    		}elseif ($user->type_id == 2) {
@@ -46,13 +69,22 @@ class UserController extends Controller
 
                         $messagem = 'Caro utilizador existem reservas clica aqui para validar';
 
-                        return view('BackEnd.User.index', ['messagem' => $messagem]); 
+                        return view('BackEnd.User.index', ['messagem' => $messagem, 'totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
+                            'reservasCanceladas' => $reservasCanceladas, 'reservasConfirmadas' => $reservasConfirmadas, 
+                            'totalReservasPendentes' => $totalReservasPendentes]); 
                     }else{
-                        return view('BackEnd.User.index');
+                        return view('BackEnd.User.index', ['totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
+                            'reservasCanceladas' => $reservasCanceladas, 'reservasConfirmadas' => $reservasConfirmadas, 
+                            'totalReservasPendentes' => $totalReservasPendentes]);
                      }
-	    		}elseif ($user->type_id == 3) {
+	    		}elseif ($user->type_id == 3 && Auth::user()->estado == 'Activo') {
 
-	    			return view('FrontEnd.Home.homeClientelogado');
+                        return view('FrontEnd.Home.homeClientelogado');
+
+                }elseif ($user->type_id == 3 && Auth::user()->estado == 'Bloqueado') {
+
+                      return redirect()->back()->with('error', 'O cliente foi Bloqueado');
+                        
 	    		}else{
 
 	    			echo "Nao achou o tipo";
@@ -71,13 +103,13 @@ class UserController extends Controller
 
         if ($request->hasFile('image')&& $request->file('image')->isValid()){
 
-            $name = $data['name'].kebab_case($data['Apelido']);
-            $extension = $request->image->extension();
-            $nameFile = "{$name}.{$extension}";
+            $name               = $data['name'].kebab_case($data['Apelido']);
+            $extension          = $request->image->extension();
+            $nameFile           = "{$name}.{$extension}";
 
-            $data['image'] = $nameFile;
+            $data['image']      = $nameFile;
 
-            $upload = $request->image->storeAs('users', $nameFile);
+            $upload             = $request->image->storeAs('users', $nameFile);
 
             if(!$upload)
                     return redirect()
@@ -129,7 +161,7 @@ class UserController extends Controller
        public function getListarcliente()
     {
         $user = User::where('users.type_id', '=', 3)->paginate($this->totalpaginate);
-        return view('BackEnd.Admin.FormListCliente', compact('user'));
+        return view('BackEnd.Cliente.FormListCliente', compact('user'));
     }
 
 
@@ -137,7 +169,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $user->estado = 'Bloqueiado';
+        $user->estado = 'Bloqueado';
 
         $user->update();
        
@@ -158,7 +190,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $user->estado = 'Bloqueiado';
+        $user->estado = 'Bloqueado';
 
         $user->update();
        
@@ -208,10 +240,39 @@ class UserController extends Controller
     {
         $dataForm       = $request->except('_token');
 
-        $user   = $user->pesquisar($dataForm, $this->totalpaginate);
+        $user           = $user->pesquisar($dataForm, $this->totalpaginate);
 
         return view('BackEnd.Admin.FormListarFuncionario', compact('user', $dataForm));
-
-        // dd($dadosPesquisa);
     }
+
+     public function clientepesquisar(Request $request, User $user)
+    {
+        $dataForm       = $request->except('_token');
+
+        $user           = $user->pesquisarcliente($dataForm, $this->totalpaginate);
+
+        return view('BackEnd.Cliente.FormListCliente', compact('user', $dataForm));
+    }
+
+
+public function clienteperfil($id)
+{   
+    $user                       = User::find($id);
+    $reservas                   = Reserve::where('user_id', '=',$id)->get();
+    $reservasTotal              = Reserve::where('user_id', '=',$id)->count();
+    $reservasConfirmadas        = Reserve::where('user_id', '=',$id)->where('estado', '=', 'Confirmado')->count();
+    $reservasCanceladas         = Reserve::where('user_id', '=',$id)->where('estado', '=', 'Cancelado')->count();
+    $reservasExpiradas          = Reserve::where('user_id', '=',$id)->where('estado', '=', 'Expirado')->count();
+
+
+    return view('BackEnd.Cliente.Profile', [
+        'user'                      => $user, 
+        'reservas'                  => $reservas,
+         'reservasTotal'            => $reservasTotal,
+         'reservasConfirmadas'      => $reservasConfirmadas,
+         'reservasCanceladas'       => $reservasCanceladas,
+         'reservasExpiradas'        => $reservasExpiradas,
+         ]);
+}
+    
 }

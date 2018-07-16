@@ -72,7 +72,10 @@
               <div class="divider"></div>
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
-                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-home"></i> Reserva </a>
+                      <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-home"></i> Reserva 
+                        @if(isset($messagem))
+                          <span class="new badge">{{$totalReservasPendentes}}</span></a>
+                        @endif
                           <div class="collapsible-body">
                               <ul>                                      
                                    <div class="divider"></div>

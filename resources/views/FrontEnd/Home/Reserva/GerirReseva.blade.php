@@ -40,6 +40,7 @@
 		                                <th>Serviço</th>
 		                                <th>Profissional</th>
 		                                <th>Dia/Hora</th>
+		                                <th>Estado</th>
 		                                <th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 390px;">Acção</th>
 		                            </tr>
 		                            </thead>
@@ -56,11 +57,16 @@
 		                                @endif
 		                                </td>
 		                                <td>{{$reserva->data}}</td>
+		                                <td>{{$reserva->estado}}</td>
 		                                <td> 
-		                                @if($reserva->estado != 'Expirado')
-		                                	<a href="" class="btn waves-effect waves-light green">Confirmar</a>
+		                                @if($reserva->estado != 'Expirado' && $reserva->estado != 'Cancelado')
+		                                	<a href="#" class="btn waves-effect waves-light green">Confirmar</a>
 		                                	<a href="{{route('editar.reserva', $reserva->id)}}" class="btn waves-effect waves-light blue">Editar</a>
-											<a href="" class="btn waves-effect waves-light  red darken-2">Cancelar</a>
+											<a href="{{route('reserva.concelar', $reserva->id)}}" class="btn waves-effect waves-light  red darken-2">Cancelar</a>
+										@else
+											<a href="#" class="btn disabled">Confirmar</a>
+		                                	<a href="#" class="btn disabled">Editar</a>
+											<a href="#" class="btn disabled">Cancelar</a>
 										@endif
                             			</td>
 		                            </tr>

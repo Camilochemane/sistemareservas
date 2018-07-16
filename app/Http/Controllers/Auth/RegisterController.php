@@ -80,7 +80,7 @@ class RegisterController extends Controller
             'endereco'          => $data['endereco'],
             'codigoCliente'     => $codigo.$id->id,
             'estado'            => 'Activo',
-            'type_id'           => 2,
+            'type_id'           => 3,
 
         ]);
     }

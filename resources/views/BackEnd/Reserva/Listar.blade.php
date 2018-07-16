@@ -25,10 +25,16 @@
        <div class="container">
           <div class="section">
               <div class="row">
-                 
+                      <div class="input-field col s9">
                       <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
                   
-                         
+                      </div>
+
+                      <div class="input-field col s3">
+                         <p><a href="{{route('relatorio.reservas')}}"><i class="mdi-maps-local-print-shop"></i></a>
+                         </p>
+                          {{-- <a href="{{route('relatorio.reservas')}}" class="btn waves-effect" align="right">Imprimir</a> --}}
+                      </div>
                  
               </div>
             
@@ -41,8 +47,12 @@
               <div class="input-field col s8">
                        {!!Form::open(['route'=>'reserva.pesquisar', 'method' => 'POST', 'role' => 'form', 'id' => 'checkout-form', 'enctype'=>'multipart/form-data'])!!}
                         <div class="input-field col s4" id="" >
-                          <input id="name" type="text"  name="name" >
-                          <label for="name">Nome do cliente</label>
+                           <select id="type" name="name" >
+                                <option value="" disabled selected>--Nome do cliente--</option>
+                              @foreach($user as $users)
+                                <option value="{!!$users->id!!}">{{$users->name}}</option>
+                              @endforeach
+                        </select>
                         </div>
                         <div class="input-field col s4" id="" >
                           <input id="name" type="date"  name="data" >
@@ -77,7 +87,7 @@
                           </td>
                         	<td>{!!$reserva->data!!} </td>
             							
-            							  @if($reserva->estado == 'Confirmar')
+            							  @if($reserva->estado == 'Confirmado')
                             <td><span class="task-cat teal"><strong>{!!$reserva->estado!!}</strong></span></td>
                             @else
                             <td><span class="task-cat pink"><strong>{!!$reserva->estado!!}</strong></span></td>
@@ -85,8 +95,11 @@
                             
                             <td>
                               @if($reserva->estado == 'Expirado')
-                                  <a href="#" class="btn waves-effect waves-light  teal darken-2">ver</a>
+                                  <a href="{{route('reserva.detalhes', $reserva->id)}}" class="btn waves-effect waves-light  teal darken-2">ver</a>
+                                   <a href="{{route('reseva.confirmar', $reserva->id)}}" class="btn disabled">Confirmar</a>
+                                   <a href="{{route('reseva.confirmar', $reserva->id)}}" class="btn disabled">Atender</a>
                               @else
+                                  <a href="{{route('reserva.detalhes', $reserva->id)}}" class="btn waves-effect waves-light  teal darken-2">ver</a>
                                   <a href="{{route('reseva.confirmar', $reserva->id)}}" class="btn waves-effect waves-light blue">Confirmar</a>
                                   <a href="{{route('reseva.confirmar', $reserva->id)}}" class="btn waves-effect waves-light green>">Atender</a>
                               @endif
@@ -95,8 +108,12 @@
       					@endforeach                   
                 </tbody>
                 </table>
-                {{$reservas->links()}}
                 
+                @if(isset($dataForm))
+                  {{$reservas->appends($dataForm)->links()}}
+                @else
+                  {{$reservas->links()}}
+                @endif 
         </div>
                 
       </div>

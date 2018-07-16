@@ -60,6 +60,8 @@
                           <li><i class="fa fa-check mr-10"></i>Quinta</li>   
                           <li><i class="fa fa-check mr-10"></i>Sexta</li>   
                           <li><i class="fa fa-check mr-10"></i>Sabado</li>   
+
+                        </ul>
                     </div> <!-- /author-info-wrapper -->
                 </div>
               </div>

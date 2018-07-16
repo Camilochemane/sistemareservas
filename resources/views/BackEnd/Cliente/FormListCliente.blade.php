@@ -27,12 +27,34 @@
             <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
             <div class="divider"></div>
           <div id="table-datatables">
-              <h4 class="header">Lista dos clientes</h4>
+               <div class="row">
+              <div class="input-field col s4">
+                  <h4 class="header">Lista dos clientes</h4>
+              </div>
+              <div class="input-field col s8">
+                       {!!Form::open(['route'=>'cliente.pesquisar', 'method' => 'POST', 'role' => 'form', 'id' => 'checkout-form', 'enctype'=>'multipart/form-data'])!!}
+                        <div class="input-field col s4" id="hideUtilizador2" >
+                          <input id="name" type="text" autocomplete="new-password" name="name" >
+                          <label for="name">Nome</label>
+                        </div>
+                        <div class="input-field col s4" id="hideUtilizador2" >
+                          <input id="name" type="text" autocomplete="new-password" name="estado" >
+                          <label for="name">Estado</label>
+                        </div>
+                        <div class="input-field col s4">
+                          <button class="btn waves-effect waves-light blue" type="submit" name="action">pesquisar
+                            <i class="mdi-content-send right"></i>
+                          </button>
+                        </div>
+                    {{Form::close()}}
+              </div>
+            </div>
               <div class="row">
+              @include('BackEnd.includes.alerts')
                 
                   <div id="data-table-simple_wrapper" class="dataTables_wrapper"><table id="data-table-simple" class="responsive-table display dataTable" cellspacing="0" role="grid" aria-describedby="data-table-simple_info">
                     <thead>
-                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 121px;">Nome</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 120px;">Apelido</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 88px;">Email</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 33px;">Função</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 76px;">Telefone</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">Estado</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 320px;">Acção</th></tr>
+                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 121px;">Nome</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 120px;">Apelido</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 88px;">Email</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 76px;">Telefone</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 64px;">Estado</th><th class="sorting" tabindex="0" aria-controls="data-table-simple" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 320px;">Acção</th></tr>
                     </thead>
                     
                     <tbody>
@@ -41,8 +63,7 @@
             							<td>{!!$users->name!!} </td>
             							<td>{!!$users->Apelido!!} </td>
             							<td>{!!$users->email!!} </td>
-            							<td>{!!$users->funcao!!} </td>
-            							<td>{!!$users->telefone!!} </td>
+            							<td>{!!$users->telefone!!}</td>
             							  @if($users->estado == 'Activo')
 
                             <td><span class="task-cat teal"><strong>{!!$users->estado!!}</strong></span></td>
@@ -55,7 +76,7 @@
                             @endif
                             
                               <td>
-                            <a href="" class="btn waves-effect waves-light  teal darken-2">Ver</a>
+                            <a href="{!!route('cliente.perfil',$users->id)!!}" class="btn waves-effect waves-light  teal darken-2">Ver</a>
                             {{-- <a href="{!!route('user.edit',$users->id)!!}" class="btn waves-effect waves-light  yellon darken-2">Edit</a>
  --}}
                             @if($users->estado== 'Activo')
@@ -71,8 +92,11 @@
 					@endforeach                   
           </tbody>
           </table>
-
-          {{$user->links()}}
+            @if(isset($dataForm))
+              {{$user->appends($dataForm)->links()}}
+            @else
+              {{$user->links()}}
+            @endif
         </div>
                 
       </div>

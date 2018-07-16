@@ -35,6 +35,6 @@ class Reserve extends Model
     		if(isset($data['data']))
     				$query->where('data', 'like' ,$data['data'].'%');
 
-    	})->paginate($totalPagina);
+    	})->orderByRaw('data DESC')->paginate($totalPagina);
     }
 }

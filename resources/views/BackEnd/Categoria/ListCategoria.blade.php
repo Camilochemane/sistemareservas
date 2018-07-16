@@ -27,7 +27,27 @@
             <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
             <div class="divider"></div>
           <div id="table-datatables">
-              <h4 class="header">Lista das categorias</h4>
+              <div class="row">
+              <div class="input-field col s4">
+                  <h4 class="header">Lista das serviço</h4>
+              </div>
+              <div class="input-field col s8">
+                       {!!Form::open(['route'=>'categoria.pesquisar', 'method' => 'POST', 'role' => 'form', 'id' => 'checkout-form', 'enctype'=>'multipart/form-data'])!!}
+                       <div class="input-field col s4" id="">
+                        </div>
+                        <div class="input-field col s4" id="" >
+                          <input id="name" type="text" autocomplete="new-password" name="name" >
+                          <label for="name">Nome do categoria</label>
+                          
+                        </div>
+                        <div class="input-field col s4">
+                          <button class="btn waves-effect waves-light blue" type="submit" name="action">pesquisar
+                            <i class="mdi-content-send right"></i>
+                          </button>
+                        </div>
+                    {{Form::close()}}
+              </div>
+            </div>
               <div class="row">
                 
                   <div id="data-table-simple_wrapper" class="dataTables_wrapper"><table id="data-table-simple" class="responsive-table display dataTable" cellspacing="0" role="grid" aria-describedby="data-table-simple_info">
@@ -48,6 +68,11 @@
                   @endforeach                   
           </tbody>
           </table>
+          @if(isset($dataForm))
+          {{$categoria->appends($dataForm)->links()}}
+           @else
+          {{$categoria->links()}}
+          @endif
         </div>
                 
       </div>

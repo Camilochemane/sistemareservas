@@ -17,7 +17,7 @@ class CreatePricesTable extends Migration
             $table->increments('id');
             $table->string('valor');
             $table->unsignedInteger('servico_id');
-            $table->text('descricao');
+            $table->text('descricao')->nullable();
 
             $table->foreign('servico_id')->references('id')->on('services');
             $table->timestamps();

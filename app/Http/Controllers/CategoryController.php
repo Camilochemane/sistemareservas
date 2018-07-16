@@ -10,7 +10,7 @@ Use DB;
 
 class CategoryController extends Controller
 {
-    
+private $totalPagina = 3;
 public function getFormcategoria()
 {
 	return view('BackEnd.Categoria.FormRegistarCategoria');
@@ -31,7 +31,7 @@ public function postAddcategoria(Request $request)
 
 public function getListcategoria()
 {
-	$categoria = Category::all();
+	$categoria = Category::paginate($this->totalPagina);
 
 	return view('BackEnd.Categoria.ListCategoria', 
 
@@ -71,4 +71,14 @@ public function postAddmodalcategoria(Request $request)
 	return redirect()->route('form.servico');
 }
 
+public function categoriaPesquisar(Request $request, Category $categoria)
+{
+	 $dataForm       = $request->except('_token');
+     $categoria       = $categoria->pesquisar($dataForm, $this->totalPagina);
+
+     return view('BackEnd.Categoria.ListCategoria', 
+
+		[ 'categoria' => $categoria, 'dataForm' => $dataForm ]
+		);
+}
 }

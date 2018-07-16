@@ -16,4 +16,18 @@ class Price extends Model
     {
     	return $this->belongsTo(Service::class, 'servico_id');
     }
+
+    public function pesquisar(Array $data, $totalPage)
+    {
+      return $this->where(function ($query) use ($data){
+
+        if(isset($data['servico_id']))
+            $query->where('servico_id', $data['servico_id']);
+
+
+        if(isset($data['servico']))
+            $query->where('valor', '=' ,$data['servico']);
+
+      })->orderByRaw('valor DESC')->paginate($totalPage);
+    }
 }
