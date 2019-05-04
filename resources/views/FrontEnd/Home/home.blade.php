@@ -31,10 +31,10 @@
                             <br>
 
                          <div class="divider"></div>
-                        <span class="available">Available for Freelance Work</span>
-                        <ul class="author-meta mb-30">
-                            <p><span class="available">Porttitor communicate pandemic data rather than enabled niche pandemic data rather markets neque pulvinar vitae.</span></p>        
-                        </ul>
+                        {{-- <span class="available">Sistema de gestao de reservas</span> --}}
+                         <br>
+                         <br>
+                        
                         <span class="available">
                           
                          <a href="{!!route('reserve.form')!!}"> <button class="btn waves-effect waves-light grey">Agendar reserva</button></a>

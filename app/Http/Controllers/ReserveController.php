@@ -25,9 +25,9 @@ class ReserveController extends Controller
     	$servicos            = DB::table('services')
                                       ->join('prices', 'services.id', '=', 'prices.servico_id')
                                         ->orderByRaw('categoria_id ASC')->paginate(6);
-    	return view('FrontEnd.Home.Reserva.FormReserva', ['servicos' => $servicos]);
+    	return view('FrontEnd.Home.Reserva.FormReserva', compact('servicos'));
     }
-
+// front end
     public function getGerirreserva()
     {
         $reservas           = Reserve::where('user_id', '=', Auth::user()->id)->orderByRaw('data DESC')->paginate($this->totalPagina);
