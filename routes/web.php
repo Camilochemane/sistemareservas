@@ -261,6 +261,10 @@ Route::group(['midlewhere' => 'auth', 'prefix' => 'reserva'], function()
 			'as'   => 'reserva.detalhes'
 		]);
 
+	Route::get('voltar', [
+			'uses' => 'ReserveController@voltarListareserva',
+			'as'   => 'voltar.listaRezervas'
+		]);
 	});
 
 Route::group(['midlewhere' => 'auth', 'prefix' => 'reserva'], function()

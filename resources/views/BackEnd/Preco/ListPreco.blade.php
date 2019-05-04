@@ -24,7 +24,19 @@
        <div class="container">
           <div class="section">
 
-            <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
+              <div class="row">
+                      <div class="input-field col s9">
+                      <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
+                  
+                      </div>
+
+                      <div class="input-field col s3">
+                         <p><a href="{{route('relatorio.reservas')}}"><i class="mdi-maps-local-print-shop"></i></a>
+                         </p>
+                          {{-- <a href="{{route('relatorio.reservas')}}" class="btn waves-effect" align="right">Imprimir</a> --}}
+                      </div>
+                 
+              </div>
             <div class="divider"></div>
           <div id="table-datatables">
               <div class="row">

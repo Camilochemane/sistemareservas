@@ -12,7 +12,7 @@ use Auth;
 
 class ReserveController extends Controller
 {
-    private $totalPagina = 3;
+    private $totalPagina           = 6;
 
       public function __construct()
     {
@@ -276,9 +276,11 @@ public function atualizarReserva(ReserveRequest $request, $id)
 // lista de reservas para backend
 public function listarReservas()
 {
-      $reservas          = Reserve::orderByRaw('data DESC')->paginate($this->totalPagina);
-      $dataAtual         = date('Y-m-d H:i:s');
-      $user              = User::where('users.type_id', '=', 3)->get();
+      $reservas                      = Reserve::orderByRaw('data DESC')->paginate($this->totalPagina);
+      $dataAtual                     = date('Y-m-d H:i:s');
+      $user                          = User::where('users.type_id', '=', 3)->get();
+      $reservasPendentes             = Reserve::where('estado', '=', 'Pendente')->first();
+      $totalReservasPendentes        = Reserve::where('estado', '=', 'Pendente')->count();
 
       $reservasExpiradas = Reserve::where('data', '<' ,$dataAtual)->get();
 
@@ -288,7 +290,9 @@ public function listarReservas()
           $expiradas->update();
       }
 
-      return view('BackEnd.Reserva.Listar', ['reservas' => $reservas, 'user' => $user]);
+      return view('BackEnd.Reserva.Listar', ['reservas' => $reservas, 'user' => $user,
+                                             'reservasPendentes' => $reservasPendentes ,
+                                             'totalReservasPendentes' => $totalReservasPendentes]);
 }
 
 
@@ -315,17 +319,21 @@ public function atenderReserva($id)
 
 public function reservaPesquisa(Request $request, Reserve $reservas)
 {
-        $dataForm             = $request->except('_token');
-        $reservas             = $reservas->pesquisar($dataForm, $this->totalPagina);
-        $user                 = User::where('users.type_id', '=', 3)->get();
+        $dataForm                      = $request->except('_token');
+        $reservas                      = $reservas->pesquisar($dataForm, $this->totalPagina);
+        $user                          = User::where('users.type_id', '=', 3)->get();
+        $reservasPendentes             = Reserve::where('estado', '=', 'Pendente')->first();
+        $totalReservasPendentes        = Reserve::where('estado', '=', 'Pendente')->count();
 
-        return view('BackEnd.Reserva.Listar', ['reservas' => $reservas, 'dataForm' => $dataForm, 'user' => $user]);
+        return view('BackEnd.Reserva.Listar', ['reservas' => $reservas, 'dataForm' => $dataForm, 'user' => $user, 
+                                               'reservasPendentes' => $reservasPendentes , 
+                                               'totalReservasPendentes' => $totalReservasPendentes]);
 }
 
 public function relatorioTodasreservas()
 {
         $reservas = Reserve::all();
-        $view     = view('BackEnd.Relatorios.TodasReservas', compact('reservas'));
+        $view     = view('BackEnd.Relatorios.ReservasAtendidas', compact('reservas'));
         $pdf      = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('reservas');
@@ -344,8 +352,21 @@ public function cancelarReserva($id)
 
 public function DetalhesReserva($id)
 {
-  
-  return view('BackEnd.Reserva.DetalhesReserva');
+  // $user         = User::where('users.id', $id)->first();
+  $reserva                       = Reserve::where('reserves.id', $id)->first();
+  $user                          = User::where('users.id', $reserva->user_id)->first();
+  $reservasPendentes             = Reserve::where('estado', '=', 'Pendente')->first();
+  $totalReservasPendentes        = Reserve::where('estado', '=', 'Pendente')->count();
+
+  return view('BackEnd.Reserva.DetalhesReserva',
+    ['user' => $user, 'reserva'               => $reserva, 
+                      'reservasPendentes'     => $reservasPendentes , 
+                      'totalReservasPendentes'=> $totalReservasPendentes]);
+}
+
+public function voltarListareserva()
+{
+   return redirect()->route('reser.listar');
 }
 
 }

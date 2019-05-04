@@ -18,7 +18,14 @@
         </section>
 
 <section id="schedule" class="section-padding">
-            <div class="container">
+      <div class="container">
+      	    @if(Auth::user()->estado == 'Bloqueado')
+              <div align="center">
+                  <h1>Cliente Bloqueado </h1>
+                 <p>Caro Cliente, o(a) senhor(a) encontra-se bloqueado(a) por excesso de reservas sem confirmações por favor contacte a CARLITOS HAIR INTERNATIONAL UH</p>
+              </div>
+
+              @else
 
               <div class="text-center mb-80 wow fadeInUp animated" style="visibility: visible; animation-name: fadeInUp;">
                   <h2 class="section-title text-uppercase">Reservas Marcadas pelo cliente {{Auth::user()->name}}</h2>
@@ -82,6 +89,7 @@
                     </div><!-- /.border-bottom-tab -->
                 </div><!-- /.col-md-12 -->
               </div><!-- /.row -->
+              @endif
             </div><!-- /.container -->
         </section>
  @stop 

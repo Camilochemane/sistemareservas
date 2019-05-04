@@ -13,7 +13,7 @@
                 <h5 class="breadcrumbs-title">Listar</h5>
                 <ol class="breadcrumb">
                     <li><a href="#">Menu</a></li>
-                    <li><a href="#">Funcionário </a></li>
+                    <li><a href="#">Cliente</a></li>
                     <li class="active">Listar</li>
                 </ol>
               </div>
@@ -24,45 +24,10 @@
        <div class="container">
           <div class="section">
 
-              <div class="row">
-                      <div class="input-field col s9">
-                      <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
-                  
-                      </div>
-
-                      <div class="input-field col s3">
-                         <p><a href="{{route('relatorio.reservas')}}"><i class="mdi-maps-local-print-shop"></i></a>
-                         </p>
-                          {{-- <a href="{{route('relatorio.reservas')}}" class="btn waves-effect" align="right">Imprimir</a> --}}
-                      </div>
-                 
-              </div>
+            <p class="caption">Sistema De Gestão De Reservas Para O Carlitos Hair International UH</p>
             <div class="divider"></div>
-
-            @include('BackEnd.includes.alerts')
           <div id="table-datatables">
-            <div class="row">
-              <div class="input-field col s4">
-                  <h4 class="header">Lista dos funcionários</h4>
-              </div>
-              <div class="input-field col s8">
-                       {!!Form::open(['route'=>'user.pesquisar', 'method' => 'POST', 'role' => 'form', 'id' => 'checkout-form', 'enctype'=>'multipart/form-data'])!!}
-                        <div class="input-field col s4" id="hideUtilizador2" >
-                          <input id="name" type="text" autocomplete="new-password" name="name" >
-                          <label for="name">Nome</label>
-                        </div>
-                        <div class="input-field col s4" id="hideUtilizador2" >
-                          <input id="name" type="text" autocomplete="new-password" name="funcao" >
-                          <label for="name">Função</label>
-                        </div>
-                        <div class="input-field col s4">
-                          <button class="btn waves-effect waves-light blue" type="submit" name="action">pesquisar
-                            <i class="mdi-content-send right"></i>
-                          </button>
-                        </div>
-                    {{Form::close()}}
-              </div>
-            </div>
+              <h4 class="header">Lista dos clientes</h4>
               <div class="row">
                 
                   <div id="data-table-simple_wrapper" class="dataTables_wrapper"><table id="data-table-simple" class="responsive-table display dataTable" cellspacing="0" role="grid" aria-describedby="data-table-simple_info">
@@ -85,17 +50,20 @@
                             @else
 
                             <td><span class="task-cat pink"><strong>{!!$users->estado!!}</strong></span></td>
+
+                            
                             @endif
                             
-                            <td>
+                              <td>
                             <a href="" class="btn waves-effect waves-light  teal darken-2">Ver</a>
-                            <a href="{!!route('user.edit',$users->id)!!}" class="btn waves-effect waves-light  yellon darken-2">Edit</a>
-
+                            {{-- <a href="{!!route('user.edit',$users->id)!!}" class="btn waves-effect waves-light  yellon darken-2">Edit</a>
+ --}}
                             @if($users->estado== 'Activo')
 
-                            <a href="{!!route('user.block',$users->id)!!}" class="btn waves-effect waves-light  red darken-2">Bloq</a>
+                            <a href="{!!route('cliente.block',$users->id)!!}" class="btn waves-effect waves-light  red darken-2">Blok</a>
                              @else
-                            <a href="{!!route('user.unlock',$users->id)!!}" class="btn waves-effect waves-light blue">Desb</a>
+
+                            <a href="{!!route('cliente.unlock',$users->id)!!}" class="btn waves-effect waves-light blue">Desb</a>
                             
                             @endif
                             </td>
@@ -103,11 +71,8 @@
 					@endforeach                   
           </tbody>
           </table>
-        @if(isset($dataForm))
-          {{$user->appends($dataForm)->links()}}
-        @else
+
           {{$user->links()}}
-        @endif
         </div>
                 
       </div>

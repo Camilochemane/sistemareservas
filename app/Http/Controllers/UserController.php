@@ -29,7 +29,7 @@ class UserController extends Controller
                 $totalCliente                           = User::where('type_id', '=', 3)->count();
 	            $totalReservas                          = Reserve::count();
                 $user                                   = User::where('email', $request->email)->first();
-                $reservas                               = Reserve::where('estado', '=', 'Pendente')->first();
+                $reservasPendentes                      = Reserve::where('estado', '=', 'Pendente')->first();
                 $totalReservasPendentes                 = Reserve::where('estado', '=', 'Pendente')->count();
                 $reservasCanceladasUtilizadorLogado     = Reserve::where('estado', '<>', 'Confirmado')->where('user_id', '=', Auth::user()->id)->count();
                 $reservasCanceladas                     = Reserve::where('estado', '<>', 'Confirmado')->count();
@@ -44,17 +44,18 @@ class UserController extends Controller
                     $nexmo  = app('Nexmo\Client');
                     $nexmo->message()->send([
                     'to'    => '258842317035',
-                    'from'  => 'Camilo',
-                    'text'  => 'Mensagem enviada por '.config('app.name', ' Carlitos Hair Internactional').' Caro cliente foste Bloqueado pelo numro excessivo de reservas nao compridas'
+                    'from'  => 'Carlitos',
+                    'text'  => 'Mensagem enviada por '.config('Carlitos', ' Carlitos Hair Internactional').' Caro cliente foste Bloqueado pelo numro excessivo de reservas nao compridas'
                     ]); 
                 }
 
 	    		if($user->type_id == 1)
 	    		{    
-                    if($reservas){
+                    if($reservasPendentes){
                         $messagem = 'Caro utilizador existem reservas clica aqui para validar';
 
-                        return view('BackEnd.Admin.index', ['messagem' => $messagem, 'totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
+                        return view('BackEnd.Admin.index', ['messagem' => $messagem, 'reservasPendentes' => $reservasPendentes,
+                         'totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
                             'reservasCanceladas' => $reservasCanceladas, 'reservasConfirmadas' => $reservasConfirmadas, 
                             'totalReservasPendentes' => $totalReservasPendentes]);
                                     
@@ -65,11 +66,12 @@ class UserController extends Controller
                      }
 
 	    		}elseif ($user->type_id == 2) {
-	    			 if($reservas){
+	    			 if($reservasPendentes){
 
                         $messagem = 'Caro utilizador existem reservas clica aqui para validar';
 
-                        return view('BackEnd.User.index', ['messagem' => $messagem, 'totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
+                        return view('BackEnd.User.index', ['messagem' => $messagem, 'reservasPendentes' => $reservasPendentes,
+                         'totalCliente' => $totalCliente, 'totalReservas' => $totalReservas, 
                             'reservasCanceladas' => $reservasCanceladas, 'reservasConfirmadas' => $reservasConfirmadas, 
                             'totalReservasPendentes' => $totalReservasPendentes]); 
                     }else{

@@ -87,7 +87,7 @@
                           <p class="collections-title">{!!$reser->servicos->name!!}</p>
                         </div>
                         <div class="col s3">
-                          <p class="collections-content">{!!$reser->hora!!}</p>
+                          <p class="collections-content">{!!$reser->data!!}</p>
                         </div>
                         <div class="col s3">
                           <p>{!!$reser->estado!!}</p>                                                

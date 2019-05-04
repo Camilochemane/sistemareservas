@@ -71,14 +71,14 @@
     // Toast Notification
     $(window).load(function() {
         setTimeout(function() {
-            Materialize.toast('<span>Hiya! I am a toast.</span>', 1500);
+            Materialize.toast('<span>Olá! Bem vindo ao sistema.</span>', 5000);
         }, 3000);
         setTimeout(function() {
-            Materialize.toast('<span>You can swipe me too!</span>', 3000);
+            Materialize.toast('<span>Sistema De Gestão De Reservas Para O Carlitos Hair International UH!</span>', 5000);
         }, 5500);
         setTimeout(function() {
-            Materialize.toast('<span>You have new order.</span><a class="btn-flat yellow-text" href="#">Read<a>', 3000);
-        }, 18000);
+            Materialize.toast('<span>Suporte tecnico 842640727.</span><a class="btn-flat yellow-text" href="#">Ir<a>', 5000);
+        }, 7500);
     });
 
     
